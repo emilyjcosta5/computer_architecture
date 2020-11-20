@@ -17,11 +17,11 @@ def generate_1():
 	while(i < no_addresses):
 		label 		= random.randint(0,2)
 		cache_line 	= bin(i).split('b')[-1]
-		offset 		= bin(random.randint(0,32)).split('b')[-1]
+		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(cache_line + offset, 2)).split('x')[-1]
 		addresses.append('%d %s'%(label, address))
 		i = i+1
-	print(addresses)
+	#print(addresses)
 	with open('trace_1.txt', 'w') as f:
 		for address in addresses:
 			f.write('%s\n'%address)
