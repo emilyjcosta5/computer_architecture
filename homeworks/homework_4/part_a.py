@@ -37,7 +37,7 @@ def generate_2():
 	i_cache_size 	= 16384
 	block_size 		= 32
 	n_way_set		= 2
-	no_misses		= 3
+	no_unique		= 3
 	no_addresses 	= (i_cache_size/block_size)/n_way_set
 	addresses 		= []
 	i 				= 0
@@ -45,7 +45,7 @@ def generate_2():
 	while(i < no_addresses):
 		# miss
 		label 		= 2
-		tag		 	= bin(i*no_misses).split('b')[-1]
+		tag		 	= bin(i*no_unique).split('b')[-1]
 		index 		= format(i, '08b')
 		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
@@ -56,7 +56,7 @@ def generate_2():
 
 		# miss
 		label 		= 2
-		tag		 	= bin(i*no_misses+1).split('b')[-1]
+		tag		 	= bin(i*no_unique+1).split('b')[-1]
 		index 		= format(i, '08b')
 		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
@@ -67,7 +67,7 @@ def generate_2():
 
 		# miss
 		label 		= 2
-		tag			= bin(i*no_misses+2).split('b')[-1]
+		tag			= bin(i*no_unique+2).split('b')[-1]
 		index 		= format(i, '08b')
 		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
@@ -81,10 +81,149 @@ def generate_2():
 
 		i = i+1
 
-	print(addresses)
+	#print(addresses)
 	with open('trace_2.txt', 'w') as f:
 		for address in addresses:
 			f.write('%s\n'%address)
 
+def generate_3():
+	'''
+	Repeat part 2, but now produce 5 misses and 5 hits, again with only 3 unique address per
+	index, but produce an interleaving pattern of Miss-Hit-Miss-Hit-Miss-Hit-…….
+	'''
+	i_cache_size 	= 16384
+	block_size 		= 32
+	n_way_set		= 2
+	no_unique		= 3
+	no_addresses 	= (i_cache_size/block_size)/n_way_set
+	addresses 		= []
+	i 				= 0
+
+	while(i < no_addresses):
+		# miss
+		label 		= 2
+		tag		 	= bin(i*no_unique).split('b')[-1]
+		index 		= format(i, '08b')
+		offset 		= format(random.randint(0,31), '05b')
+		address0	= hex(int(tag + index + offset, 2)).split('x')[-1]
+		addresses.append('%d %s'%(label, address0))
+
+		# hit
+		addresses.append('%d %s'%(label, address0))
+
+		# miss
+		label 		= 2
+		tag		 	= bin(i*no_unique+1).split('b')[-1]
+		index 		= format(i, '08b')
+		offset 		= format(random.randint(0,31), '05b')
+		address1 	= hex(int(tag + index + offset, 2)).split('x')[-1]
+		addresses.append('%d %s'%(label, address1))
+
+		# hit
+		addresses.append('%d %s'%(label, address1))
+
+		# miss
+		label 		= 2
+		tag			= bin(i*no_unique+2).split('b')[-1]
+		index 		= format(i, '08b')
+		offset 		= format(random.randint(0,31), '05b')
+		address2 	= hex(int(tag + index + offset, 2)).split('x')[-1]
+		addresses.append('%d %s'%(label, address2))
+
+		# hit
+		addresses.append('%d %s'%(label, address2))
+
+		# miss
+		addresses.append('%d %s'%(label, address0))
+
+		# hit
+		addresses.append('%d %s'%(label, address0))
+
+		# miss
+		addresses.append('%d %s'%(label, address1))
+
+		# hit
+		addresses.append('%d %s'%(label, address1))
+
+		i = i+1
+
+	#print(addresses)
+	with open('trace_3.txt', 'w') as f:
+		for address in addresses:
+			f.write('%s\n'%address)
+
+def generate_4():
+	'''
+	Assume that you have a 4-way set associate 32KB data cache with a (32B block size).
+	Generate an address stream that will generate 6 hits and 4 misses. Make sure that your
+	stream includes both loads and stores.
+	'''
+	i_cache_size 	= 16384
+	block_size 		= 32
+	n_way_set		= 4
+	no_unique		= 3
+	no_addresses 	= (i_cache_size/block_size)/n_way_set
+	addresses 		= []
+	i 				= 0
+
+	while(i < no_addresses):
+		# miss
+		label 		= 2
+		tag		 	= bin(i*no_unique).split('b')[-1]
+		index 		= format(i, '08b')
+		offset 		= format(random.randint(0,31), '05b')
+		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
+		addresses.append('%d %s'%(label, address))
+
+		# hit
+		addresses.append('%d %s'%(label, address))
+
+		# miss
+		label 		= 2
+		tag		 	= bin(i*no_unique+1).split('b')[-1]
+		index 		= format(i, '08b')
+		offset 		= format(random.randint(0,31), '05b')
+		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
+		addresses.append('%d %s'%(label, address))
+
+		# hit
+		addresses.append('%d %s'%(label, address))
+
+		# miss
+		label 		= 2
+		tag			= bin(i*no_unique+2).split('b')[-1]
+		index 		= format(i, '08b')
+		offset 		= format(random.randint(0,31), '05b')
+		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
+		addresses.append('%d %s'%(label, address))
+
+		# hit
+		addresses.append('%d %s'%(label, address))
+
+		# hit
+		addresses.append('%d %s'%(label, address))
+
+		# miss
+		label 		= 2
+		tag			= bin(i*no_unique+3).split('b')[-1]
+		index 		= format(i, '08b')
+		offset 		= format(random.randint(0,31), '05b')
+		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
+		addresses.append('%d %s'%(label, address))
+
+		# hit
+		addresses.append('%d %s'%(label, address))
+
+		# hit
+		addresses.append('%d %s'%(label, address))
+
+		i = i+1
+
+	#print(addresses)
+	with open('trace_4.txt', 'w') as f:
+		for address in addresses:
+			f.write('%s\n'%address)
+
 if __name__=='__main__':
-	generate_2()
+	generate_3()
+	generate_4()
