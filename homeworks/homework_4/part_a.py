@@ -15,7 +15,7 @@ def generate_1():
 	i 				= 0
 
 	while(i < no_addresses):
-		label 		= random.randint(0,2)
+		label 		= 2
 		cache_line 	= bin(i).split('b')[-1]
 		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(cache_line + offset, 2)).split('x')[-1]
