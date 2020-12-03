@@ -59,7 +59,11 @@ graph = [[1, 1, 0, 1],
 		[0, 0, 1, 1],
 		[0, 0, 0, 1]]
 '''
+<<<<<<< HEAD
 N = 10
+=======
+N = 100
+>>>>>>> c3c4fa571fbff2398c9406d066bac2668a897413
 graph =[[random.randint(0,1) for i in range(N)] for j in range(N)]
 #print(graph)
 #Print the solution

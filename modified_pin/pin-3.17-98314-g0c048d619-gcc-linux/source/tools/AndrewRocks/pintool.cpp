@@ -1,5 +1,8 @@
 #include "pin.H"
+<<<<<<< HEAD
 #include <fstream>
+=======
+>>>>>>> c3c4fa571fbff2398c9406d066bac2668a897413
 #include <iostream>
 #include <list>
 #include <algorithm>
@@ -20,11 +23,19 @@ using std::queue;
 static std::list<UINT64> accessed_pages;
 static queue<int> labels;
 
+<<<<<<< HEAD
 VOID RecordMemAccess(VOID *addr, VOID *label) {
     UINT32 label_val = (UINT64)label;
     UINT64 addr_val = (UINT64)addr;
     accessed_pages.push_back(addr_val);
     labels.push(label_val);
+=======
+VOID RecordMemAccess(VOID *addr) {
+    //UINT32 label_val = (UINT32)label;
+    UINT64 addr_val = (UINT64)addr;
+    accessed_pages.push_back(addr_val);
+    //labels.push_back(label_val);
+>>>>>>> c3c4fa571fbff2398c9406d066bac2668a897413
 }
 // Is called for every instruction and instruments reads and writes
 VOID OnInstruction(INS ins, VOID *v)
@@ -36,8 +47,12 @@ VOID OnInstruction(INS ins, VOID *v)
     // On the IA-32 and Intel(R) 64 architectures conditional moves and REP 
     // prefixed instructions appear as predicated instructions in Pin.
     UINT32 memOperands = INS_MemoryOperandCount(ins);
+<<<<<<< HEAD
     std::ofstream outfile;
     outfile.open("type.txt", std::ios_base::app);
+=======
+
+>>>>>>> c3c4fa571fbff2398c9406d066bac2668a897413
     // Iterate over each memory operand of the instruction.
     for (UINT32 memOp = 0; memOp < memOperands; memOp++)
     {
@@ -46,12 +61,17 @@ VOID OnInstruction(INS ins, VOID *v)
             INS_InsertPredicatedCall(
                 ins, IPOINT_BEFORE, (AFUNPTR)RecordMemAccess,
                 IARG_MEMORYOP_EA, memOp,
+<<<<<<< HEAD
                 IARG_UINT32, 0,
 		IARG_END);
 	    outfile << 0;
 	    //cout << ' ';
 	    //cout << std::hex << ins << endl;
 	    //labels.push(0);
+=======
+                IARG_END);
+	    labels.push(0);
+>>>>>>> c3c4fa571fbff2398c9406d066bac2668a897413
         }
         // Note that in some architectures a single memory operand can be 
         // both read and written (for instance incl (%eax) on IA-32)
@@ -61,13 +81,22 @@ VOID OnInstruction(INS ins, VOID *v)
             INS_InsertPredicatedCall(
                 ins, IPOINT_BEFORE, (AFUNPTR)RecordMemAccess,
                 IARG_MEMORYOP_EA, memOp,
+<<<<<<< HEAD
 		IARG_UINT32, 1,
                 IARG_END);
+=======
+                IARG_END);
+	    labels.push(1);
+>>>>>>> c3c4fa571fbff2398c9406d066bac2668a897413
         }
     }
 }
 
 VOID Fini(INT32 code, VOID *v) {
+<<<<<<< HEAD
+=======
+     cout << "Accessed pages:" << endl;
+>>>>>>> c3c4fa571fbff2398c9406d066bac2668a897413
      for(auto const& x : accessed_pages) {
          cout << labels.front(); 
 	 labels.pop(); 
