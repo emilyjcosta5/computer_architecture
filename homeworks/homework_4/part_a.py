@@ -43,10 +43,11 @@ def generate_2():
 	i 				= 0
 
 	while(i < no_addresses):
-		# miss
 		label 		= 2
+		index 		= format(i, '08b')
+
+		# miss
 		tag		 	= bin(i*no_unique).split('b')[-1]
-		index 		= format(i, '08b')
 		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
 		addresses.append('%d %s'%(label, address))
@@ -55,9 +56,7 @@ def generate_2():
 		addresses.append('%d %s'%(label, address))
 
 		# miss
-		label 		= 2
 		tag		 	= bin(i*no_unique+1).split('b')[-1]
-		index 		= format(i, '08b')
 		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
 		addresses.append('%d %s'%(label, address))
@@ -66,9 +65,7 @@ def generate_2():
 		addresses.append('%d %s'%(label, address))
 
 		# miss
-		label 		= 2
 		tag			= bin(i*no_unique+2).split('b')[-1]
-		index 		= format(i, '08b')
 		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
 		addresses.append('%d %s'%(label, address))
@@ -100,10 +97,11 @@ def generate_3():
 	i 				= 0
 
 	while(i < no_addresses):
-		# miss
 		label 		= 2
-		tag		 	= bin(i*no_unique).split('b')[-1]
 		index 		= format(i, '08b')
+
+		# miss
+		tag			= format(i*no_unique, '019b')
 		offset 		= format(random.randint(0,31), '05b')
 		address0	= hex(int(tag + index + offset, 2)).split('x')[-1]
 		addresses.append('%d %s'%(label, address0))
@@ -112,9 +110,7 @@ def generate_3():
 		addresses.append('%d %s'%(label, address0))
 
 		# miss
-		label 		= 2
-		tag		 	= bin(i*no_unique+1).split('b')[-1]
-		index 		= format(i, '08b')
+		tag		 	= format(i*no_unique+1, '019b')
 		offset 		= format(random.randint(0,31), '05b')
 		address1 	= hex(int(tag + index + offset, 2)).split('x')[-1]
 		addresses.append('%d %s'%(label, address1))
@@ -123,9 +119,7 @@ def generate_3():
 		addresses.append('%d %s'%(label, address1))
 
 		# miss
-		label 		= 2
-		tag			= bin(i*no_unique+2).split('b')[-1]
-		index 		= format(i, '08b')
+		tag			= format(i*no_unique+2, '019b')
 		offset 		= format(random.randint(0,31), '05b')
 		address2 	= hex(int(tag + index + offset, 2)).split('x')[-1]
 		addresses.append('%d %s'%(label, address2))
@@ -167,10 +161,11 @@ def generate_4():
 	i 				= 0
 
 	while(i < no_addresses):
-		# miss
 		label 		= 2
+		index 		= format(i, '08b')
+
+		# miss
 		tag		 	= bin(i*no_unique).split('b')[-1]
-		index 		= format(i, '08b')
 		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
 		addresses.append('%d %s'%(label, address))
@@ -179,9 +174,7 @@ def generate_4():
 		addresses.append('%d %s'%(label, address))
 
 		# miss
-		label 		= 2
 		tag		 	= bin(i*no_unique+1).split('b')[-1]
-		index 		= format(i, '08b')
 		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
 		addresses.append('%d %s'%(label, address))
@@ -190,9 +183,7 @@ def generate_4():
 		addresses.append('%d %s'%(label, address))
 
 		# miss
-		label 		= 2
 		tag			= bin(i*no_unique+2).split('b')[-1]
-		index 		= format(i, '08b')
 		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
 		addresses.append('%d %s'%(label, address))
@@ -204,9 +195,7 @@ def generate_4():
 		addresses.append('%d %s'%(label, address))
 
 		# miss
-		label 		= 2
 		tag			= bin(i*no_unique+3).split('b')[-1]
-		index 		= format(i, '08b')
 		offset 		= format(random.randint(0,31), '05b')
 		address 	= hex(int(tag + index + offset, 2)).split('x')[-1]
 		addresses.append('%d %s'%(label, address))
@@ -225,5 +214,7 @@ def generate_4():
 			f.write('%s\n'%address)
 
 if __name__=='__main__':
+	generate_1()
+	generate_2()
 	generate_3()
 	generate_4()
