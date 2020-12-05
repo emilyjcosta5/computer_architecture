@@ -68,12 +68,22 @@ VOID OnInstruction(INS ins, VOID *v)
 }
 
 VOID Fini(INT32 code, VOID *v) {
+     ofstream file;
+     file.open("trace.txt");
      for(auto const& x : accessed_pages) {
-         cout << labels.front(); 
+         file << labels.front(); 
 	 labels.pop(); 
-	 cout << ' ';
-	 cout << std::hex << x << endl;
+	 file << ' ';
+	 file << std::hex << x << endl;
      }
+     //UINT64 i;
+     /*for (list<UINT64>::iterator i = accessed_pages.begin(); i != accessed_pages.end(); ++i){
+         file << labels.front();
+         labels.pop();
+         file << ' ';         
+         file << std::hex << i << endl;
+     }*/
+     file.close();
     //std::copy(accessed_pages.begin(),
     //    accessed_pages.end(),
     //    std::ostream_iterator<int>(std::cout, "\n"));
